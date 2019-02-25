@@ -31,7 +31,7 @@ public class ChoiceQuestion extends Question {
 		choices.add(choice);
 		if (correct) {
 			String choiceString = Integer.toString(choices.size());
-			setAnswer(super.getAnswer() + choiceString + " ");
+			setAnswer(getAnswer() + choiceString + " ");
 		}
 	}
 	

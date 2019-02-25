@@ -1,11 +1,19 @@
 package Testers;
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
-import Recursion.Dataset;
-import Recursion.Point;
-import Recursion.Polygon;
-import Recursion.Sentence;
+import ArrayLists.*;
+import Decisions.*;
+import ElevensSolitaire.*;
+import ImplementingClasses.*;
+import Inheritence.*;
+import Introduction.*;
+import Iteration.*;
+import Labs.*;
+import Miscellaneous.*;
+import Recursion.*;
+import StaticArrays.*;
 
 public class test {
 
@@ -163,7 +171,7 @@ public class test {
 			System.out.println("Please enter your response below:");
 			String response = pencil.nextLine();
 			System.out.println(q.checkAnswer(response));
-		} */
+		}
 		
 		Sentence a = new Sentence("racecar");
 		System.out.println(a.isPalindrome());
@@ -178,7 +186,7 @@ public class test {
 		int[] yeet = {1, 4, 6, 2, 7};
 		Dataset numbers = new Dataset(yeet, 1, 4);
 		System.out.println(numbers.getSum());
-		System.out.println(numbers.getMaximum());
+		System.out.println(numbers.getMaximum()); */
 		
 		Point b = new Point();
 		Point c = new Point(0,2);
@@ -207,8 +215,6 @@ public class test {
 		triangle.addPoint(g);
 		triangle.addPoint(h);
 		System.out.println(triangle.getArea());
-		
-		
 	}
 	
 }
