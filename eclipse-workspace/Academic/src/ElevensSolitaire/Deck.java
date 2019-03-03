@@ -72,11 +72,11 @@ public class Deck {
 		Random completelyRandom = new Random();
 		int r;
 		Card storedCard;
-		for (int i = size - 1; i >= 0; i --) {
-			r = completelyRandom.nextInt(size);
+		for (int i = cards.size() - 1; i >= 0; i --) {
+			r = completelyRandom.nextInt(cards.size());
 			storedCard = cards.get(r);
-			cards.set(r, cards.get(size - 1));
-			cards.set(size - 1, storedCard);
+			cards.set(r, cards.get(cards.size() - 1));
+			cards.set(cards.size() - 1, storedCard);
 		}
 	}
 
