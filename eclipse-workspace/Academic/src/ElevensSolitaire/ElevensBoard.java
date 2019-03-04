@@ -96,15 +96,17 @@ public class ElevensBoard extends Board {
 	 *              contain an 11-pair; false otherwise.
 	 */
 	private boolean containsPairSum11(List<Integer> selectedCards) {
-		int sum = 0;
-		for (Integer index : selectedCards) {
-			sum += cardAt(index).getPointValue();
-		}
-		if (sum == 11) {
-			return true;
+		if (selectedCards.size() <= 1) {
+			return false;
 		}
 		else {
-			return false;
+			for (int i = 1; i < selectedCards.size(); i ++) {
+				if (cardAt(selectedCards.get(0)).getPointValue() + cardAt(selectedCards.get(i)).getPointValue() == 11) {
+					return true;
+				}
+			}
+			List<Integer> x = selectedCards.subList(1, selectedCards.size());
+			return containsPairSum11(x);
 		}
 	}
 

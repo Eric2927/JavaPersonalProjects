@@ -78,6 +78,7 @@ public class Deck {
 			cards.set(r, cards.get(cards.size() - 1));
 			cards.set(cards.size() - 1, storedCard);
 		}
+		size = cards.size();
 	}
 
 	/**
