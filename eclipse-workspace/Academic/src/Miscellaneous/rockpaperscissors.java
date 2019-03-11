@@ -6,10 +6,10 @@ public class rockpaperscissors {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Rock Paper Scissors!");
-		Scanner myboi = new Scanner(System.in);
+		Scanner user = new Scanner(System.in);
 		System.out.println("Rock, Paper, or Scissors?");
-		String raw_user_choice = myboi.next();
-		myboi.close();
+		String raw_user_choice = user.next();
+		user.close();
 		String user_choice = raw_user_choice.toLowerCase();
 		System.out.println(user_choice);
 		Random myboi2 = new Random();

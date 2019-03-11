@@ -6,7 +6,7 @@ public class HiLo {
 
 	public static void main(String[] args) {
 		boolean playAgain = true;
-		Scanner myboi = new Scanner(System.in);
+		Scanner user = new Scanner(System.in);
 		while (playAgain) {
 			System.out.println("Welcome to Hi-Lo.");
 			System.out.println("If you would like to quit the game at any time, just enter anything invalid (Examples: '-23', 'I don't wanna play anymore!').");
@@ -18,7 +18,7 @@ public class HiLo {
 			while (!quit) {
 				System.out.println("Guess a number between 1 and 100.");
 				try {
-					user_guess = myboi.nextInt();
+					user_guess = user.nextInt();
 				}
 				catch (Exception e) {
 					quit = true;
@@ -44,8 +44,8 @@ public class HiLo {
 				}
 			}
 			System.out.println("Would you like to play again? y/n?");
-			myboi.nextLine();
-			String user_playAgain = myboi.nextLine();
+			user.nextLine();
+			String user_playAgain = user.nextLine();
 			if (user_playAgain.equals("y")) {
 				playAgain = true;
 			}
@@ -54,7 +54,7 @@ public class HiLo {
 				System.out.println("Ok cool, bye.");
 			}
 		}
-		myboi.close();
+		user.close();
 	}
 
 }

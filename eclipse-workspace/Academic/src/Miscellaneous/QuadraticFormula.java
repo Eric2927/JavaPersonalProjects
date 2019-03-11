@@ -5,14 +5,14 @@ public class QuadraticFormula {
 
 	public static void main(String[] args) {
 		System.out.println("Given the form Ax^2 + Bx + C = 0");
-		Scanner myboi = new Scanner(System.in);
+		Scanner user = new Scanner(System.in);
 		System.out.println("Please enter the coefficient for A: ");
-		double A = myboi.nextDouble();
+		double A = user.nextDouble();
 		System.out.println("Please enter the coefficient for B: ");
-		double B = myboi.nextDouble();
+		double B = user.nextDouble();
 		System.out.println("Please enter the coefficient for C: ");
-		double C = myboi.nextDouble();
-		myboi.close();
+		double C = user.nextDouble();
+		user.close();
 		double discriminant = Math.pow(B, 2) - 4*A*C;
 		if (discriminant < 0) {
 			System.out.println("There are no real solutions.");
