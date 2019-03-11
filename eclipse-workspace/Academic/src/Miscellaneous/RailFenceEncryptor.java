@@ -4,7 +4,7 @@ package Miscellaneous;
  * @author eric_li
  *
  */
-public class RailFence {
+public class RailFenceEncryptor {
 
 	public static void main(String[] args) {
 		String userInput = "WEAREDISCOVEREDFLEEATONCE";
