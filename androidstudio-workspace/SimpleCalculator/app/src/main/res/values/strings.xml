@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleCalculator</string>
+    <string name="firstNumText">Enter the first number:</string>
+    <string name="enter_a_real_number">Enter a real number</string>
+    <string name="secondNumText">Enter the second number:</string>
+    <string name="calculateButtonLabel">Calculate</string>
 </resources>

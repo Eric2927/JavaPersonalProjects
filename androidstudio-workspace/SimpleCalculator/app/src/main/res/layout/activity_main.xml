@@ -15,6 +15,43 @@
             android:id="@+id/firstNumLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter the First Number" />
+            android:text="@string/firstNumText" />
+
+        <EditText
+            android:id="@+id/firstNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/enter_a_real_number"
+            android:inputType="numberDecimal"
+            android:autofillHints="" tools:targetApi="o" />
+
+        <TextView
+            android:id="@+id/secondNumLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/secondNumText" />
+
+        <EditText
+            android:id="@+id/secondNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/enter_a_real_number"
+            android:inputType="numberDecimal"
+            android:autofillHints="" tools:targetApi="o" />
+
+        <Button
+            android:id="@+id/calculateButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="calculate"
+            android:text="@string/calculateButtonLabel" />
+
+        <TextView
+            android:id="@+id/answerLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
