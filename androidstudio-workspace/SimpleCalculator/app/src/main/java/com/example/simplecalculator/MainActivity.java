@@ -17,15 +17,14 @@ public class MainActivity extends AppCompatActivity {
     public void calculate(View view) {
         EditText numOneText = (EditText) findViewById(R.id.firstNum);
         EditText numTwoText = (EditText) findViewById(R.id.secondNum);
-
-        String numOneStr = numOneText.getText().toString();
-        String numTwoStr = numTwoText.getText().toString();
-
-        double numOne = Double.parseDouble(numOneStr);
-        double numTwo = Double.parseDouble(numTwoStr);
-        double answer = numOne + numTwo;
+        double numOne = Double.parseDouble(numOneText.getText().toString());
+        double numTwo = Double.parseDouble(numTwoText.getText().toString());
+        double sum = numOne + numTwo;
+        double difference = numOne - numTwo;
+        double product = numOne * numTwo;
+        double quotient = numOne / numTwo;
 
         TextView answerText = (TextView) findViewById(R.id.answerLabel);
-        answerText.setText("Answer: " + answer.toString());
+        answerText.setText("Sum: " + sum + "\nDifference: " + difference + "\nProduct: " + product + "\nQuotient: " + quotient);
     }
 }
