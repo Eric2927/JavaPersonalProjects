@@ -8,12 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_statistics);
 
         BottomNavigationView bottomNavigation = (BottomNavigationView) findViewById(R.id.navbarBottom);
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -22,16 +22,16 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
 
                     case R.id.ic_home:
+                        Intent openHome = new Intent(Statistics.this, MainActivity.class);
+                        startActivity(openHome);
                         break;
 
                     case R.id.ic_notifications:
-                        Intent openNotifs = new Intent(MainActivity.this, Notifications.class);
+                        Intent openNotifs = new Intent(Statistics.this, Notifications.class);
                         startActivity(openNotifs);
                         break;
 
                     case R.id.ic_chart:
-                        Intent openStats = new Intent(MainActivity.this, Statistics.class);
-                        startActivity(openStats);
                         break;
                 }
 
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Menu bottomNavBar = bottomNavigation.getMenu();
-        MenuItem item = bottomNavBar.getItem(0);
+        MenuItem item = bottomNavBar.getItem(2);
         item.setChecked(true);
     }
 }

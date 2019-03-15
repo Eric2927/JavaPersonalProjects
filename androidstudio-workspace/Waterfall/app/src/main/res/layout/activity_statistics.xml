@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Statistics"
     android:background="@color/colorWhite">
 
     <android.support.design.widget.AppBarLayout
@@ -61,7 +61,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/home_label"
+            android:text="@string/chart_label"
             android:textAlignment="center"
             android:gravity="center"
             android:textSize="24pt"/>
