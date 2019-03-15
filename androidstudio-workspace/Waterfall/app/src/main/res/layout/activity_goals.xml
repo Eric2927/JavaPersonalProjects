@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Goals"
     android:background="@color/colorWhite">
 
     <android.support.design.widget.AppBarLayout
@@ -58,22 +58,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ProgressBar
-                style="?android:progressBarStyleHorizontal"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:progress="80"
-                android:progressDrawable="@drawable/progress_bar_circular" />
-
-
-        </LinearLayout>
-
-
+            android:layout_height="match_parent"
+            android:text="@string/goals_label"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="24pt"/>
     </RelativeLayout>
 
 

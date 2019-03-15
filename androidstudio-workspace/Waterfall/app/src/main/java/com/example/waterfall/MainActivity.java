@@ -1,5 +1,6 @@
 package com.example.waterfall;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -27,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.ic_notifications:
                         Intent openNotifs = new Intent(MainActivity.this, Notifications.class);
                         startActivity(openNotifs);
+                        break;
+
+                    case R.id.ic_goals:
+                        Intent openGoals = new Intent(MainActivity.this, Goals.class);
+                        startActivity(openGoals);
                         break;
 
                     case R.id.ic_chart:

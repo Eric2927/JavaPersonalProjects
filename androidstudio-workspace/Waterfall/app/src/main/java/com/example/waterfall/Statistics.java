@@ -31,6 +31,11 @@ public class Statistics extends AppCompatActivity {
                         startActivity(openNotifs);
                         break;
 
+                    case R.id.ic_goals:
+                        Intent openGoals = new Intent(Statistics.this, Goals.class);
+                        startActivity(openGoals);
+                        break;
+
                     case R.id.ic_chart:
                         break;
                 }
@@ -40,7 +45,7 @@ public class Statistics extends AppCompatActivity {
         });
 
         Menu bottomNavBar = bottomNavigation.getMenu();
-        MenuItem item = bottomNavBar.getItem(2);
+        MenuItem item = bottomNavBar.getItem(3);
         item.setChecked(true);
     }
 }
