@@ -7,7 +7,7 @@ package Miscellaneous;
 public class RailFenceEncryptor {
 
 	public static void main(String[] args) {
-		String userInput = "N U T STANDS FOR NO U THOT";
+		String userInput = "WEAREDISCOVERDFLEEATONCE";
 		String encryptedInput = encode(userInput);
 		String decryptedInput = decode(encryptedInput);
 		System.out.println(encryptedInput);
