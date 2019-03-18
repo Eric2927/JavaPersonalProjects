@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,5 +52,9 @@ public class MainActivity extends AppCompatActivity {
         Menu bottomNavBar = bottomNavigation.getMenu();
         MenuItem item = bottomNavBar.getItem(0);
         item.setChecked(true);
+
+        ProgressBar progressCircle = (ProgressBar) findViewById(R.id.circle_progress);
+        TextView percentageDrank = (TextView) findViewById(R.id.text_percent_drank);
+        TextView fractionDrank = (TextView) findViewById(R.id.text_fraction_drank);
     }
 }
