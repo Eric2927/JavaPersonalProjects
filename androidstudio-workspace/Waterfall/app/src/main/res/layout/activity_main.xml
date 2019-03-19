@@ -32,7 +32,8 @@
                     android:orientation="horizontal"
                     android:weightSum="5">
 
-                    <ImageView
+                    <ImageButton
+                        android:id="@+id/bluetooth_button"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
