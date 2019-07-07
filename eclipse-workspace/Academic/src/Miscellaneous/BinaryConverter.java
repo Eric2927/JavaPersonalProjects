@@ -3,7 +3,7 @@ package Miscellaneous;
 
 public class BinaryConverter {
 	
-	public static void binaryConverter (String str) {
+	public static void binaryConverter(String str) {
 		int str_length = str.length();
 		int power = 0;
 		int base10_sum = 0;
