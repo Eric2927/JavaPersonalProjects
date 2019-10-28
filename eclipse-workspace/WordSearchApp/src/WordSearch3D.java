@@ -37,8 +37,76 @@ public class WordSearch3D {
 	 * word, then the method returns a list of the (3-d) locations of its letters; if not, 
 	 */
 	public int[][] search (char[][][] grid, String word) {
-		// TODO: implement me
+		if (word.length() == 0)
+		{
+			int[][] wordPosition = new int[0][0];
+			return wordPosition;
+		}
+		for (int x = 0; x < grid.length; x ++)
+		{
+			for (int y = 0; y < grid[0].length; y ++)
+			{
+				for (int z = 0; z < grid[0][0].length; z ++)
+				{
+					if (grid[x][y][z] == word.charAt(0))
+					{
+						searchHelper(grid, word, x, y, z);
+					}
+				}
+			}
+		}
 		return null;
+	}
+	
+	public int[][] searchHelper (char[][][] grid, String word, int xStart, int yStart, int zStart)
+	{
+		int[][] wordPosition = new int[word.length()][3];
+		for (int i = -1; i <= 1; i ++)
+		{
+			for (int j = -1; j <= 1; j ++)
+			{
+				for (int k = -1; k <= 1; k ++)
+				{
+					if (i == 0 && j == 0 && k == 0)
+					{
+						continue;
+					}
+					if (!outOfBounds(grid, xStart + i, yStart + j, zStart + k))
+					{
+						if (grid[xStart + i][yStart + j][zStart + k] == word.charAt(1))
+						{
+							String wordInDirection = "";
+							boolean wordFits = true;
+							for (int a = 0; a < word.length(); a ++)
+							{
+								if (outOfBounds(grid, xStart + i * a, yStart + j * a, zStart + k * a))
+								{
+									wordFits = false;
+									break;
+								}
+								wordInDirection = wordInDirection + grid[xStart + i * a][yStart + j * a][zStart + k * a];
+							}
+							if (word.equals(wordInDirection) && wordFits)
+							{
+								for (int b = 0; b < word.length(); b ++)
+								{
+									wordPosition[b][0] = xStart + i * b;
+									wordPosition[b][1] = yStart + j * b;
+									wordPosition[b][2] = zStart + k * b;
+								}
+								return wordPosition;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public boolean outOfBounds (char[][][] grid, int x, int y, int z)
+	{
+		return x >= grid.length || y >= grid[0].length || z >= grid[0][0].length || x < 0 || y < 0 || z < 0;
 	}
 
 	/**
@@ -52,7 +120,13 @@ public class WordSearch3D {
 	 * no satisfying grid could be found.
 	 */
 	public char[][][] make (String[] words, int sizeX, int sizeY, int sizeZ) {
-		// TODO: implement me
+		char[][][] grid = new char[sizeX][sizeY][sizeZ];
+		boolean[][][] isPopulated = new boolean[sizeX][sizeY][sizeZ];
+		final Random rng = new Random();
+		for (String word : words)
+		{
+			
+		}
 		return null;
 	}
 
