@@ -21,13 +21,32 @@ public class WordSearchTester {
 		assertTrue((row[0] == 'j' && row[1] == 'a' && row[2] == 'v' && row[3] == 'a') ||
 		           (row[3] == 'j' && row[2] == 'a' && row[1] == 'v' && row[0] == 'a'));
 	}
+	
+	@Test
+	/**
+	 * Verifies that the make method actually puts the given words into the grid
+	 */
+	public void testMakeWordsExist () {
+		final String[] words = new String[] {"clover", "apple"};
+		final char[][][] grid = _wordSearch.make(words, 10, 10, 10);
+		assertNotNull(grid);
+		assertNotNull(_wordSearch.search(grid, "clover"));
+		assertNotNull(_wordSearch.search(grid, "apple"));
+		assertNull(_wordSearch.search(grid, "Halloween"));
+		
+	}
 
 	@Test
 	/**
 	 * Verifies that make returns null when it's impossible to construct a puzzle.
 	 */
 	public void testMakeImpossible () {
-		// TODO: implement me
+		final String[] words1 = new String[] {"omega", "zeta", "omnicron"};
+		final char[][][] grid1 = _wordSearch.make(words1, 3, 3, 3);
+		assertNull(grid1);
+		final String[] words2 = new String[] {"abc", "def", "ad", "df"};
+		final char[][][] grid2 = _wordSearch.make(words2, 2, 3, 1);
+		assertNull(grid2);
 	}
 
         @Test
@@ -73,6 +92,7 @@ public class WordSearchTester {
 				assertEquals(grid[x][y].length, 13);
 			}
 		}
+		assertNotNull(_wordSearch.search(grid, "at"));
 	}
 
 	/* TODO: write more methods for both make and search. */

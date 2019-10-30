@@ -50,7 +50,11 @@ public class WordSearch3D {
 				{
 					if (grid[x][y][z] == word.charAt(0))
 					{
-						searchHelper(grid, word, x, y, z);
+						int[][] wordPosition = searchHelper(grid, word, x, y, z);
+						if (wordPosition != null)
+						{
+							return wordPosition;
+						}
 					}
 				}
 			}
@@ -71,22 +75,16 @@ public class WordSearch3D {
 					{
 						continue;
 					}
-					if (!outOfBounds(grid, xStart + i, yStart + j, zStart + k))
+					if (!outOfBounds(grid, xStart + i * (word.length() - 1), yStart + j * (word.length() - 1), zStart + k * (word.length() - 1)))
 					{
 						if (grid[xStart + i][yStart + j][zStart + k] == word.charAt(1))
 						{
 							String wordInDirection = "";
-							boolean wordFits = true;
 							for (int a = 0; a < word.length(); a ++)
 							{
-								if (outOfBounds(grid, xStart + i * a, yStart + j * a, zStart + k * a))
-								{
-									wordFits = false;
-									break;
-								}
 								wordInDirection = wordInDirection + grid[xStart + i * a][yStart + j * a][zStart + k * a];
 							}
-							if (word.equals(wordInDirection) && wordFits)
+							if (word.equals(wordInDirection))
 							{
 								for (int b = 0; b < word.length(); b ++)
 								{
@@ -106,7 +104,7 @@ public class WordSearch3D {
 	
 	public boolean outOfBounds (char[][][] grid, int x, int y, int z)
 	{
-		return x >= grid.length || y >= grid[0].length || z >= grid[0][0].length || x < 0 || y < 0 || z < 0;
+		return (x >= grid.length || y >= grid[0].length || z >= grid[0][0].length || x < 0 || y < 0 || z < 0);
 	}
 
 	/**
@@ -120,12 +118,100 @@ public class WordSearch3D {
 	 * no satisfying grid could be found.
 	 */
 	public char[][][] make (String[] words, int sizeX, int sizeY, int sizeZ) {
-		char[][][] grid = new char[sizeX][sizeY][sizeZ];
-		boolean[][][] isPopulated = new boolean[sizeX][sizeY][sizeZ];
-		final Random rng = new Random();
 		for (String word : words)
 		{
-			
+			if (word.length() > Math.floor(Math.sqrt(Math.pow(sizeX, 2) + Math.pow(sizeY, 2) + Math.pow(sizeZ, 2))))
+			{
+				return null;
+			}
+		}
+		char[][][] grid = new char[sizeX][sizeY][sizeZ];
+		boolean[][][] populateGrid = new boolean[sizeX][sizeY][sizeZ];
+		final Random rng = new Random();
+		return makeHelper(words, grid, populateGrid, 0, 0, rng);
+	}
+	
+	public char[][][] makeHelper (String[] words, char[][][] grid, boolean[][][] populateGrid, int wordIndex, int numTries, Random rng)
+	{
+		boolean valid = false;
+		int tries = 0;
+		int wordLength = words[wordIndex].length();
+		while (!valid && tries < 1000)
+		{
+			int x = rng.nextInt(grid.length);
+			int y = rng.nextInt(grid[0].length);
+			int z = rng.nextInt(grid[0][0].length);
+			for (int i = -1; i <= 1 && !valid; i ++)
+			{
+				for (int j = -1; j <= 1 && !valid; j ++)
+				{
+					for (int k = -1; k <= 1 && !valid; k ++)
+					{
+						if (i == 0 && j == 0 && k == 0)
+						{
+							continue;
+						}
+						if (!outOfBounds(grid, x + i * (wordLength - 1), y + j * (wordLength - 1), z + k * (wordLength - 1)))
+						{
+							char[][][] tempGrid = Arrays.copyOfRange(grid, 0, grid.length);
+							boolean[][][] tempPopulateGrid = Arrays.copyOfRange(populateGrid, 0, populateGrid.length);
+							for (int a = 0; a < words[wordIndex].length(); a ++)
+							{
+								if (!populateGrid[x + i * a][y + j * a][z + k * a] || grid[x + i * a][y + j * a][z + k * a] == words[wordIndex].charAt(a))
+								{
+									grid[x + i * a][y + j * a][z + k * a] = words[wordIndex].charAt(a);
+									populateGrid[x + i * a][y + j * a][z + k * a] = true;
+									if (a == words[wordIndex].length() - 1)
+									{
+										valid = true;
+									}
+								}
+								else
+								{
+									grid = tempGrid;
+									populateGrid = tempPopulateGrid;
+									valid = false;
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			tries ++;
+		}
+		if (valid)
+		{
+			if (wordIndex == words.length - 1)
+			{
+				for (int i = 0; i < populateGrid.length; i ++)
+				{
+					for (int j = 0; j < populateGrid[0].length; j ++)
+					{
+						for (int k = 0; k < populateGrid[0][0].length; k ++)
+						{
+							if (populateGrid[i][j][k] == false)
+							{
+								grid[i][j][k] = (char) (rng.nextInt(26) + 'a');
+							}
+						}
+					}
+				}
+				return grid;
+			}
+			else
+			{
+				return makeHelper(words, grid, populateGrid, wordIndex + 1, numTries, rng);
+			}
+		}
+		else
+		{
+			if (numTries < 1000)
+			{
+				char[][][] cleanGrid = new char[grid.length][grid[0].length][grid[0][0].length];
+				boolean[][][] cleanPopulateGrid = new boolean[grid.length][grid[0].length][grid[0][0].length];
+				return makeHelper(words, cleanGrid, cleanPopulateGrid, 0, numTries + 1, rng);
+			}
 		}
 		return null;
 	}
