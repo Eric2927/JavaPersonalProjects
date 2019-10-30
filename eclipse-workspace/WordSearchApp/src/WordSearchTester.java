@@ -30,10 +30,8 @@ public class WordSearchTester {
 		final String[] words = new String[] {"clover", "apple"};
 		final char[][][] grid = _wordSearch.make(words, 10, 10, 10);
 		assertNotNull(grid);
-		assertNotNull(_wordSearch.search(grid, "clover"));
-		assertNotNull(_wordSearch.search(grid, "apple"));
+		assertNotNull(_wordSearch.searchForAll(grid, words));
 		assertNull(_wordSearch.search(grid, "Halloween"));
-		
 	}
 
 	@Test
@@ -92,7 +90,7 @@ public class WordSearchTester {
 				assertEquals(grid[x][y].length, 13);
 			}
 		}
-		assertNotNull(_wordSearch.search(grid, "at"));
+		assertNotNull(_wordSearch.searchForAll(grid, words));
 	}
 
 	/* TODO: write more methods for both make and search. */

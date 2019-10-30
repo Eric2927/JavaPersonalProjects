@@ -35,13 +35,16 @@ public class WordSearch3D {
 	 * @param word the word to search for
 	 * @return If the grid contains the
 	 * word, then the method returns a list of the (3-d) locations of its letters; if not, 
+	 * the method returns null
 	 */
 	public int[][] search (char[][][] grid, String word) {
+		// If word is passed in as empty string, returns an empty array of integers 
 		if (word.length() == 0)
 		{
 			int[][] wordPosition = new int[0][0];
 			return wordPosition;
 		}
+		
 		for (int x = 0; x < grid.length; x ++)
 		{
 			for (int y = 0; y < grid[0].length; y ++)
@@ -51,6 +54,7 @@ public class WordSearch3D {
 					if (grid[x][y][z] == word.charAt(0))
 					{
 						int[][] wordPosition = searchHelper(grid, word, x, y, z);
+						// The following statement makes sure that all directions are checked before returning null
 						if (wordPosition != null)
 						{
 							return wordPosition;
@@ -62,9 +66,23 @@ public class WordSearch3D {
 		return null;
 	}
 	
+	/**
+	 * Helper method to the search method. Given a starting coordinate (x,y,z), a grid, and a word,
+	 * this method checks every direction from the starting coordinate in the given grid to see if the word
+	 * is there or not.
+	 * @param grid the grid of characters comprising the word search puzzle
+	 * @param word the word to search for
+	 * @param xStart the x coordinate of the starting location of the word in the grid
+	 * @param yStart the y coordinate of the starting location of the word in the grid
+	 * @param zStart the z coordinate of the starting location of the word in the grid
+	 * @return If the grid contains the word, the method returns a list of the coordinates of its letters;
+	 * If the grid does not contain the word, the method returns null
+	 */
 	public int[][] searchHelper (char[][][] grid, String word, int xStart, int yStart, int zStart)
 	{
 		int[][] wordPosition = new int[word.length()][3];
+		// Logic behind this triple nested for loops: i, j, and k act like vectors in each possible direction.
+		// The loops go through every possible direction that you can go in the a 3D grid without skipping coordinates.
 		for (int i = -1; i <= 1; i ++)
 		{
 			for (int j = -1; j <= 1; j ++)
@@ -75,17 +93,22 @@ public class WordSearch3D {
 					{
 						continue;
 					}
+					// If statement checks if the last letter of the word would be out of bounds if the word started at
+					// location (x,y,z) and it went in the direction [i,j,k]
 					if (!outOfBounds(grid, xStart + i * (word.length() - 1), yStart + j * (word.length() - 1), zStart + k * (word.length() - 1)))
 					{
+						// Checks if second letter in the direction [i,j,k] is equal to the second letter of the word.
+						// Somewhat unnecessary, but usually takes less runtime this way.
 						if (grid[xStart + i][yStart + j][zStart + k] == word.charAt(1))
 						{
-							String wordInDirection = "";
+							String wordInDirection = ""; // will store the word formed by going in direction [i,j,k]
 							for (int a = 0; a < word.length(); a ++)
 							{
 								wordInDirection = wordInDirection + grid[xStart + i * a][yStart + j * a][zStart + k * a];
 							}
 							if (word.equals(wordInDirection))
 							{
+								// Populates the wordPosition array with the positions of each letter of the word in the grid
 								for (int b = 0; b < word.length(); b ++)
 								{
 									wordPosition[b][0] = xStart + i * b;
@@ -102,6 +125,14 @@ public class WordSearch3D {
 		return null;
 	}
 	
+	/**
+	 * Given a grid and a coordinate (x, y, z), checks if the coordinate is out of bounds of the grid
+	 * @param grid the character grid of the word search
+	 * @param x the x coordinate of the location of interest
+	 * @param y the y coordinate of the location of interest
+	 * @param z the z coordinate of the location of interest
+	 * @return The method returns true if the coordinate is out of bounds; The method returns false otherwise
+	 */
 	public boolean outOfBounds (char[][][] grid, int x, int y, int z)
 	{
 		return (x >= grid.length || y >= grid[0].length || z >= grid[0][0].length || x < 0 || y < 0 || z < 0);
@@ -125,16 +156,33 @@ public class WordSearch3D {
 				return null;
 			}
 		}
-		char[][][] grid = new char[sizeX][sizeY][sizeZ];
+		char[][][] grid = new char[sizeX][sizeY][sizeZ]; // the word search grid, to be returned at the end
+		
+		// populateGrid is a grid parallel to the word search grid. It is filled with
+		// boolean that represent whether the corresponding coordinate in populateGrid has already been used.
 		boolean[][][] populateGrid = new boolean[sizeX][sizeY][sizeZ];
 		final Random rng = new Random();
 		return makeHelper(words, grid, populateGrid, 0, 0, rng);
 	}
 	
+	/**
+	 * Helper method to the make method. Given the parameters listed, the helper method attempts to fit
+	 * the word in the given list of words at the given index into the given grid.
+	 * @param words the list of words to put in the grid
+	 * @param grid the word search grid to put the words into
+	 * @param populateGrid a grid of booleans that represents whether each coordinate of
+	 * the word search grid is already used for another word
+	 * @param wordIndex the index of the word in the list of words that the helper method is
+	 * trying to fit into the grid at the moment
+	 * @param numTries the number of tries the method has tried to make a valid grid
+	 * @param rng a Random object used for generating random numbers
+	 * @return If a grid containing the given words is possible, a valid grid is returned. Otherwise,
+	 * the method returns null
+	 */
 	public char[][][] makeHelper (String[] words, char[][][] grid, boolean[][][] populateGrid, int wordIndex, int numTries, Random rng)
 	{
-		boolean valid = false;
-		int tries = 0;
+		boolean valid = false; // represents whether the current attempt is valid or not
+		int tries = 0; // stores the number of times the method has tried to fit the word into the grid
 		int wordLength = words[wordIndex].length();
 		while (!valid && tries < 1000)
 		{
@@ -151,10 +199,16 @@ public class WordSearch3D {
 						{
 							continue;
 						}
+						// Checks if the word would fit if placed in the current direction specified by i, j, and k
 						if (!outOfBounds(grid, x + i * (wordLength - 1), y + j * (wordLength - 1), z + k * (wordLength - 1)))
 						{
+							// The following two grids are temporary, and are meant to store the original grids before they are
+							// altered by the proceeding code. This is done so the grids can be revereted if the word does not fit.
 							char[][][] tempGrid = Arrays.copyOfRange(grid, 0, grid.length);
 							boolean[][][] tempPopulateGrid = Arrays.copyOfRange(populateGrid, 0, populateGrid.length);
+							// The following loop tries to fit every letter of the word of interest in the current direction.
+							// The grid and populateGrid variables are altered as each letter is fit into the grid. If the letter
+							// cannot be put into the grid, then the code moves on to a different direction.
 							for (int a = 0; a < words[wordIndex].length(); a ++)
 							{
 								if (!populateGrid[x + i * a][y + j * a][z + k * a] || grid[x + i * a][y + j * a][z + k * a] == words[wordIndex].charAt(a))
@@ -168,6 +222,7 @@ public class WordSearch3D {
 								}
 								else
 								{
+									// Reverting the grids to the original state before the loop
 									grid = tempGrid;
 									populateGrid = tempPopulateGrid;
 									valid = false;
