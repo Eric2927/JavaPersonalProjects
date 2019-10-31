@@ -64,6 +64,49 @@ public class WordSearchTester {
                 assertEquals(location[1][1], 1);
                 assertEquals(location[1][2], 2);
         }
+        
+        @Test
+        /**
+         * 
+         */
+        public void testSearch3D ()
+        {
+        	final char[][][] grid = new char[][][] { { { 'a', 'b', 'c' },
+        												{'d', 'e', 'f'} },
+        											{ {'g', 'h', 'i'},
+        												{'j', 'k', 'l'} },
+        											{ {'m', 'n', 'o'},
+        												{'p', 'q', 'r'} } };
+        												
+        	final int[][] location1 = _wordSearch.search(grid, "hi");
+        	assertNotNull(location1);
+        	assertEquals(location1[0][0], 1);
+        	assertEquals(location1[0][1], 0);
+        	assertEquals(location1[0][2], 1);
+        	assertEquals(location1[1][0], 1);
+        	assertEquals(location1[1][1], 0);
+        	assertEquals(location1[1][2], 2);
+        	
+        	final int[][] location2 = _wordSearch.search(grid, "or");
+        	assertNotNull(location2);
+        	assertEquals(location2[0][0], 2);
+        	assertEquals(location2[0][1], 0);
+        	assertEquals(location2[0][2], 2);
+        	assertEquals(location2[1][0], 2);
+        	assertEquals(location2[1][1], 1);
+        	assertEquals(location2[1][2], 2);
+        	
+        	final int[][] location3 = _wordSearch.search(grid, "ak");
+        	assertNotNull(location3);
+        	assertEquals(location3[0][0], 0);
+        	assertEquals(location3[0][1], 0);
+        	assertEquals(location3[0][2], 0);
+        	assertEquals(location3[1][0], 1);
+        	assertEquals(location3[1][1], 1);
+        	assertEquals(location3[1][2], 1);
+        	
+        	assertNull(_wordSearch.search(grid, "not")); // test for out of bounds scenario
+        }
 
 	@Test
 	/**
