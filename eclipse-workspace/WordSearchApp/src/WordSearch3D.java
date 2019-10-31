@@ -195,39 +195,13 @@ public class WordSearch3D {
 				{
 					for (int k = -1; k <= 1 && !valid; k ++)
 					{
-						if (i == 0 && j == 0 && k == 0)
+						// Vector [0,0,0] is not considered
+						if (i != 0 || j != 0 || k != 0)
 						{
-							continue;
-						}
-						// Checks if the word would fit if placed in the current direction specified by i, j, and k
-						if (!outOfBounds(grid, x + i * (wordLength - 1), y + j * (wordLength - 1), z + k * (wordLength - 1)))
-						{
-							// The following two grids are temporary, and are meant to store the original grids before they are
-							// altered by the proceeding code. This is done so the grids can be revereted if the word does not fit.
-							char[][][] tempGrid = Arrays.copyOfRange(grid, 0, grid.length);
-							boolean[][][] tempPopulateGrid = Arrays.copyOfRange(populateGrid, 0, populateGrid.length);
-							// The following loop tries to fit every letter of the word of interest in the current direction.
-							// The grid and populateGrid variables are altered as each letter is fit into the grid. If the letter
-							// cannot be put into the grid, then the code moves on to a different direction.
-							for (int a = 0; a < words[wordIndex].length(); a ++)
+							// Checks if the word would fit if placed in the current direction specified by i, j, and k
+							if (!outOfBounds(grid, x + i * (wordLength - 1), y + j * (wordLength - 1), z + k * (wordLength - 1)))
 							{
-								if (!populateGrid[x + i * a][y + j * a][z + k * a] || grid[x + i * a][y + j * a][z + k * a] == words[wordIndex].charAt(a))
-								{
-									grid[x + i * a][y + j * a][z + k * a] = words[wordIndex].charAt(a);
-									populateGrid[x + i * a][y + j * a][z + k * a] = true;
-									if (a == words[wordIndex].length() - 1)
-									{
-										valid = true;
-									}
-								}
-								else
-								{
-									// Reverting the grids to the original state before the loop
-									grid = tempGrid;
-									populateGrid = tempPopulateGrid;
-									valid = false;
-									break;
-								}
+								valid = makeHelper2(grid, populateGrid, words[wordIndex], x, y, z, i, j, k);
 							}
 						}
 					}
@@ -269,6 +243,42 @@ public class WordSearch3D {
 			}
 		}
 		return null;
+	}
+	
+	/*
+	 * This method tries to fit the given word into the given grid starting at
+	 * the given (x,y,z) coordinates and going in the [i,j,k] direction.
+	 * Returns true if the word fits, and returns false otherwise.
+	 */
+	public boolean makeHelper2 (char[][][] grid, boolean[][][] populateGrid, String word, int x, int y, int z, int i, int j, int k)
+	{
+		// The following two grids are temporary, and are meant to store the original grids before they are
+		// altered by the proceeding code. This is done so the grids can be revereted if the word does not fit.
+		char[][][] tempGrid = Arrays.copyOfRange(grid, 0, grid.length);
+		boolean[][][] tempPopulateGrid = Arrays.copyOfRange(populateGrid, 0, populateGrid.length);
+		// The following loop tries to fit every letter of the word of interest in the current direction.
+		// The grid and populateGrid variables are altered as each letter is fit into the grid. If the letter
+		// cannot be put into the grid, then the code moves on to a different direction.
+		for (int a = 0; a < word.length(); a ++)
+		{
+			if (!populateGrid[x + i * a][y + j * a][z + k * a] || grid[x + i * a][y + j * a][z + k * a] == word.charAt(a))
+			{
+				grid[x + i * a][y + j * a][z + k * a] = word.charAt(a);
+				populateGrid[x + i * a][y + j * a][z + k * a] = true;
+				if (a == word.length() - 1)
+				{
+					return true;
+				}
+			}
+			else
+			{
+				// Reverting the grids to the original state before the loop
+				grid = tempGrid;
+				populateGrid = tempPopulateGrid;
+				return false;
+			}
+		}
+		return false;
 	}
 
 	/**
