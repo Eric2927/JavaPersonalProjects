@@ -1,6 +1,6 @@
-CRC: 0x31A030F4  File: actors.list  Date: Fri Jul 15 00:00:00 2016
+CRC: 0x7544B660  File: actresses.list  Date: Fri Aug  5 00:00:00 2016
 
-Copyright 1990-2007 The Internet Movie Database, Inc.  All rights reserved. 
+Copyright 1993-2007 The Internet Movie Database, Inc.  All rights reserved.
 
 COPYING POLICY: Internet Movie Database (IMDb)
 ==============================================
@@ -81,17 +81,19 @@ COPYING POLICY: Internet Movie Database (IMDb)
 
          -------------------------------------------------------
 
-Welcome to the latest version of the actors list. 
+Welcome to the latest version of the actresses list. 
 
-Please feel free to submit entries for actors not already on the list,
-or new entries for existing actors. 
+Please feel free to submit entries for actresses not already on the list,
+or new entries for existing actresses.
 
-This list is managed by Giancarlo Cairella http://imdb.com/contact from
-1990-1998 it was managed by Col Needham http://imdb.com/contact
+This list is managed by Giancarlo Cairella;
+from 1993-1998 it was managed by Col Needham;
+from 1990-1993 it was managed by Andy Krieg.
 
-If you have any additions or corrections please respond by e-mail only. The 
-section at the end of the list contains details on the formats to use. The
-copying policy is also described at the end of the list.
+If you have any additions or corrections please use
+http://imdb.com/updates only. The section at the end of the list contains
+details on the formats to use. The copying policy is also described at
+the end of the list.
 
   
 The Internet Movie Database consists of the following lists:               
@@ -218,9 +220,9 @@ ways to access the database:
 
 -----------------------------------------------------------------------------
 RULES:
-1       Movies and recurring TV roles only, no TV guest appearances
+1       Movies and recurring TV roles only, no guest appearances
 2       Please submit entries in the format outlined at the end of the list
-3       Feel free to submit new actors
+3       Feel free to submit new actresses
 
 "xxxxx"        = a television series
 "xxxxx" (mini) = a television mini-series
@@ -232,14 +234,12 @@ RULES:
                  variety/comedy specials released on video, or 
                  self-help/physical fitness videos)
 
-THE ACTORS LIST
-===============
+THE ACTRESSES LIST
+==================
 
 Name			Titles 
 ----			------
+Actress1	Movie1 (2001)
+			Movie3 (2003)
 
-Actor1	Movie1 (2001)
-
-Actor2	Movie2 (2002)
-
-Actor3	Movie3 (2003)
+Actress2	Movie2 (2002)

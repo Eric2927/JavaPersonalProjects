@@ -14,25 +14,54 @@ public class GraphPartialTester {
 	/**
 	 * Verifies that there is no shortest path between a specific and actor and actress.
 	 */
-	@Test(timeout=5000)
+	//@Test(timeout=5000)
 	public void findShortestPath () throws IOException {
-		imdbGraph = new IMDBGraphImpl("actors_test.list", "actresses_test.list");
+		imdbGraph = new IMDBGraphImpl(
+				"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actors_test.list",
+				"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actresses_test.list");
 		final Node actor1 = imdbGraph.getActor("Actor1");
 		final Node actress2 = imdbGraph.getActor("Actress2");
 		final List<Node> shortestPath = searchEngine.findShortestPath(actor1, actress2);
 		assertNull(shortestPath);  // there is no path between these people
 	}
+	
+	public static void main(String[] args) {
+		try {
+			// "/Users/eric_li/Downloads/IMDB/actors.list"
+			IMDBGraph myImdbGraph = new IMDBGraphImpl(
+					"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actors_test.list",
+					"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actresses_test.list");
+			/*final Node actor1 = myImdbGraph.getActor("Actor3");
+			final Node actress2 = myImdbGraph.getActor("Actress1");
+			GraphSearchEngine mySearchEngine = new GraphSearchEngineImpl();
+			try {
+				final List<Node> shortestPath = mySearchEngine.findShortestPath(actor1, actress2);
+				for (int i = 0; i < shortestPath.size(); i ++) {
+					System.out.println(shortestPath.get(i).getName());
+				}
+			}
+			catch (Exception e) {
+				System.out.println("No path?");
+				e.printStackTrace();
+			} */
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-	@Before
+	//@Before
 	/**
 	 * Instantiates the graph
 	 */
 	public void setUp () throws IOException {
-		imdbGraph = new IMDBGraphImpl("actors_test.list", "actresses_test.list");
+		imdbGraph = new IMDBGraphImpl(
+				"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actors_test.list",
+				"/Users/eric_li/Documents/Github/PersonalProjects/eclipse-workspace/IMDBGraph/src/actresses_test.list");
 		searchEngine = new GraphSearchEngineImpl();
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Just verifies that the graphs could be instantiated without crashing.
 	 */
@@ -41,7 +70,7 @@ public class GraphPartialTester {
 		// Yay! We didn't crash
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Verifies that a specific movie has been parsed.
 	 */
@@ -49,7 +78,7 @@ public class GraphPartialTester {
 		testFindNode(imdbGraph.getMovies(), "Movie1 (2001)");
 	}
 
-	@Test
+	//@Test
 	/**
 	 * Verifies that a specific actress has been parsed.
 	 */
