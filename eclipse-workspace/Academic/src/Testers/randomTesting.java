@@ -1,9 +1,17 @@
 package Testers;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 public class randomTesting {
+	
+	class Person {
+		Person _mom, _dad;
+		List<Person> _kids;
+		
+		public boolean hasParent(Person parent) {
+			return parent == _mom || parent == _dad;
+		}
+	}
 	
 	class MyArrayList<T> implements Iterable<T> {
 		private T[] _array;
@@ -33,10 +41,12 @@ public class randomTesting {
 			return new ArrayListIterator<T>();
 		}
 	}
+
 	
-	public static void main(String[] args) {
-		String hi = "1";
-		System.out.println(Integer.valueOf(hi));
+	
+	
+	public static void main(String[] args) {	
+		
 	}
 
 }
