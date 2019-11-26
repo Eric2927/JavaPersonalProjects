@@ -41,7 +41,30 @@ public class randomTesting {
 			return new ArrayListIterator<T>();
 		}
 	}
+	
+	class BSTNode<T extends Comparable<T>> {
+		BSTNode<T> _parent, _left, _right;
+		T _value;
+	}
 
+	<T extends Comparable<T>> boolean contains(BSTNode<T> root, T value) {
+		if (root._value.compareTo(value) == 0) {
+			return true;
+		}
+		else if (root._value.compareTo(value) < 1) {
+			if (root._right == null)
+			{
+				return false;
+			}
+			return contains(root._right, value);
+		}
+		else {
+			if (root._left == null) {
+				return false;
+			}
+			return contains(root._left, value);
+		}
+	}
 	
 	
 	
