@@ -32,7 +32,6 @@ public class MultiplicativeExpression implements CompoundExpression {
 		List<Expression> newChildren = new ArrayList<Expression>();
 		int index = 1;
 		int oldSize = children.size();
-		
 		while(it.hasNext() && index <= oldSize) {
 			Expression e = it.next();
 			index++;
