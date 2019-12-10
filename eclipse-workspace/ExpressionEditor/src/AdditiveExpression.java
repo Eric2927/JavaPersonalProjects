@@ -28,27 +28,25 @@ public class AdditiveExpression implements CompoundExpression {
 	}
 
 	public void flatten() {
-        Iterator<Expression> it = children.iterator();
-        List<Expression> newChildren = new ArrayList<Expression>();
-        int index = 1;
-        int oldSize = children.size();
-        
-        while(it.hasNext() /*&& index <= oldSize */) {
-            Expression e = it.next();
-            index++;
-            if(e instanceof AdditiveExpression) {
-                for(Expression eofC : ((AdditiveExpression) e).children) {
-                     eofC.flatten();
-                     newChildren.add(eofC);           
-                }
-                it.remove();
-            }
-            else {
-                newChildren.add(e);
-            }            
-        }
-        children = newChildren; 
-		/*
+		/*List<Expression> newChildren = new ArrayList<Expression>();
+		for (int i = 0; i < children.size(); i ++) {
+			children.get(i).flatten();
+			if (children.get(i) instanceof AdditiveExpression) {
+				for (Expression grandChild : ((AdditiveExpression) children.get(i)).children) {
+					grandChild.setParent(this);
+					newChildren.add(grandChild);
+				}
+				try {
+					children.get(i).setParent(null);
+				}
+				catch (NullPointerException e){
+					//Nothing
+				}
+			}
+			else {
+				newChildren.add(children.get(i));
+			}
+		} */
 		Iterator<Expression> it = children.iterator();
 		List<Expression> newChildren = new ArrayList<Expression>();
 		int index = 1;
@@ -76,8 +74,7 @@ public class AdditiveExpression implements CompoundExpression {
 				newChildren.add(e);
 			}			
 		}
-		children = newChildren;		
-		*/
+		children = newChildren;
 	}
 	
 	public void convertToString(StringBuilder stringBuilder, int indentLevel) {

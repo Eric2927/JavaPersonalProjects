@@ -28,6 +28,25 @@ public class MultiplicativeExpression implements CompoundExpression {
 	}
 	
 	public void flatten() {
+		/*List<Expression> newChildren = new ArrayList<Expression>();
+		for (int i = 0; i < children.size(); i ++) {
+			children.get(i).flatten();
+			if (children.get(i) instanceof MultiplicativeExpression) {
+				for (Expression grandChild : ((MultiplicativeExpression) children.get(i)).children) {
+					grandChild.setParent(this);
+					newChildren.add(grandChild);
+				}
+				try {
+					children.get(i).setParent(null);
+				}
+				catch (NullPointerException e){
+					//Nothing
+				}
+			}
+			else {
+				newChildren.add(children.get(i));
+			}
+		} */
         Iterator<Expression> it = children.iterator();
 		List<Expression> newChildren = new ArrayList<Expression>();
 		int index = 1;

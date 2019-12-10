@@ -47,8 +47,9 @@ public class SimpleExpressionParser implements ExpressionParser {
 	}
 	
 	private static Expression parseE(String str, Expression exp) {
-		if(parseA(str, exp) != null) {					
-			return parseA(str, exp);
+		Expression expression = parseA(str, exp);
+		if(expression != null) {					
+			return expression;
 		}
 		else {
 			return parseX(str, exp);
@@ -56,24 +57,24 @@ public class SimpleExpressionParser implements ExpressionParser {
 	}
 	
 	private static Expression parseX(String str, Expression exp) {
-		for(int i = 0; i < str.length(); i++) {
-			if(str.charAt(i) == '(' && str.charAt(str.length()-1) == ')' && str.length() != 2) {
-				CompoundExpression expression = new ParentheticalExpression();
-				expression.setParent((CompoundExpression) exp);
-				exp = expression;
-				if(parseE(str.substring(i+1, str.length() - 1), exp) != null) {
-					expression.addSubexpression(parseE(str.substring(i+1, str.length() - 1), exp));
-					return expression;
-				}
-				else return null;						
-			}						
+		if(str.charAt(0) == '(' && str.charAt(str.length()-1) == ')' && str.length() != 2) {
+			CompoundExpression expression = new ParentheticalExpression();
+			expression.setParent((CompoundExpression) exp);
+			exp = expression;
+			Expression middleExpression = parseE(str.substring(1, str.length() - 1), exp);
+			if(middleExpression != null) {
+				expression.addSubexpression(middleExpression);
+				return expression;
+			}
+			else return null;
 		}
-		if(parseL(str, exp) != null) {
-			return parseL(str, exp);
+		else {
+			Expression expression = parseL(str, exp);
+			if(expression != null) {
+				return expression;
+			}
+			else return null;
 		}
-		else { 
-			return null;
-		}		
 	}
 	
 	private static Expression parseL(String str, Expression exp) {

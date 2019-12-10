@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+import java.util.*;
 import java.io.*;
 
 /**
@@ -33,7 +34,7 @@ public class ExpressionParserPartialTester {
 	public void testExpression1 () throws ExpressionParseException {
 		final String expressionStr = "a+b";
 		final String parseTreeStr = "+\n\ta\n\tb\n";
-		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
+		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0).replace('*', '·'));
 	}
 
 	@Test
@@ -42,8 +43,8 @@ public class ExpressionParserPartialTester {
 	 */
 	public void testExpression2 () throws ExpressionParseException {
 		final String expressionStr = "13*x";
-		final String parseTreeStr = "*\n\t13\n\tx\n";
-		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
+		final String parseTreeStr = "·\n\t13\n\tx\n";
+		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0).replace('*', '·'));
 	}
 
 	@Test
@@ -52,8 +53,8 @@ public class ExpressionParserPartialTester {
 	 */
 	public void testExpression3 () throws ExpressionParseException {
 		final String expressionStr = "4*(z+5*x)";
-		final String parseTreeStr = "*\n\t4\n\t()\n\t\t+\n\t\t\tz\n\t\t\t*\n\t\t\t\t5\n\t\t\t\tx\n";
-		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
+		final String parseTreeStr = "·\n\t4\n\t()\n\t\t+\n\t\t\tz\n\t\t\t·\n\t\t\t\t5\n\t\t\t\tx\n";
+		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0).replace('*', '·'));
 	}
 
 	@Test
@@ -63,7 +64,7 @@ public class ExpressionParserPartialTester {
 	public void testExpressionAndFlatten1 () throws ExpressionParseException {
 		final String expressionStr = "1+2+3";
 		final String parseTreeStr = "+\n\t1\n\t2\n\t3\n";
-		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
+		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0).replace('*', '·'));
 	}
 
 	@Test
@@ -73,7 +74,7 @@ public class ExpressionParserPartialTester {
 	public void testExpressionAndFlatten2 () throws ExpressionParseException {
 		final String expressionStr = "(x+(x)+(x+x)+x)";
 		final String parseTreeStr = "()\n\t+\n\t\tx\n\t\t()\n\t\t\tx\n\t\t()\n\t\t\t+\n\t\t\t\tx\n\t\t\t\tx\n\t\tx\n";
-		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0));
+		assertEquals(parseTreeStr, _parser.parse(expressionStr, false).convertToString(0).replace('*', '·'));
 	}
 
 	@Test(expected = ExpressionParseException.class) 
@@ -101,21 +102,5 @@ public class ExpressionParserPartialTester {
 	public void testException3 () throws ExpressionParseException {
 		final String expressionStr = "()()";
 		_parser.parse(expressionStr, false);
-	}
-	
-	@Test
-	public void testCanMakeTreeStruct1() throws ExpressionParseException {
-		final String expressionStr = "(x+7)*(56*((x+5)))+(6+(e+0))";
-		final String expressionStr2 = "4+(w+(34))+(3+4)+(4*5*6*7)";
-		final String expressionStr3 = "4+(3+4)+((x+5)*9+6+7)+(4+x)";
-		assertNotNull(_parser.parse(expressionStr, false));
-	}
-	
-	@Test
-	public void deepCopyWorks() throws ExpressionParseException {
-		final String expressionStr = "(x+7)*(56*((x+5)))+(6+(e+0))";
-		Expression expression = _parser.parse(expressionStr, false);
-		Expression e = expression.deepCopy();
-		assertNotEquals(e, expression);
 	}
 }
