@@ -27,7 +27,7 @@ public class SimpleExpressionParser implements ExpressionParser {
 		}
 		// Flatten the expression before returning
 		expression.flatten();
-		System.out.print(expression.convertToString(0));
+		//System.out.print(expression.convertToString(0));
 		return expression;
 	}
 	

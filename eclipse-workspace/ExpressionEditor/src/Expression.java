@@ -1,5 +1,7 @@
 import javafx.scene.layout.*;
+
 import javafx.scene.paint.Color;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 interface Expression {
@@ -81,4 +83,12 @@ interface Expression {
 			stringBuilder.append('\t');
 		}
 	}
+	
+	Expression findMostSpecificFocus (Point2D point, boolean root);
+	
+	Expression findHighlighted ();
+	
+	void convertToGhost(boolean revert);
+	
+	boolean contains (double x, double y);
 }
