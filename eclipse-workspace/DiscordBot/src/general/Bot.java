@@ -13,6 +13,9 @@ import net.dv8tion.jda.api.entities.Activity;
 public class Bot {
 	public static JDA jda;
 	public static String prefix = "::";
+	public static int errorColor = 0xff0000;
+	public static int successColor = 0x00ff00;
+	public static int primaryColor = 0xbb0000;
 	
 	public static void main(String args[]) throws LoginException {
 		File tokenFile = new File("Token.txt");
