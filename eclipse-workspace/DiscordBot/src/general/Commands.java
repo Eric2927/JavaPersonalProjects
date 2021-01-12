@@ -84,7 +84,7 @@ public class Commands extends ListenerAdapter {
 		
 		// Mute command
 		else if (args[0].equalsIgnoreCase(Bot.prefix + "mute")) {
-			final List<Role> mutedRoles = event.getGuild().getRolesByName("Muted", true);
+			List<Role> mutedRoles = event.getGuild().getRolesByName("Muted", true);
 			if (mutedRoles.isEmpty()) {
 				event.getGuild().createRole().setName("Muted").setColor(0x000001).complete();
 			}
