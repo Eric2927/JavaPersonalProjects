@@ -30,6 +30,8 @@ public class Commands extends ListenerAdapter {
 			cmdList.setDescription("Below is a list of all useable commands. [] indicate mandatory parameters. {} indicate optional parameters.");
 			cmdList.addField("help", "Displays list of commands", false);
 			cmdList.addField("purge [# of messages]", "Deletes given number of messages", false);
+			cmdList.addField("mute [user mention]", "Mutes the user with the given mention/tag", false);
+			cmdList.addField("unmute [user mention]", "Unmutes the user with the given mention/tag", false);
 			cmdList.setColor(Bot.primaryColor);
 			event.getChannel().sendMessage(cmdList.build()).queue((embed) -> cmdList.clear());
 		}
@@ -90,21 +92,18 @@ public class Commands extends ListenerAdapter {
 			}
 			Role mutedRole = event.getGuild().getRolesByName("Muted", true).get(0);
 			Member userToMute;
+			// Might add future functionality with muting for a given amount of time
 			switch (args.length) {
 			case 2:
-				userToMute = event.getGuild().getMemberById(args[1].replace("<@", "").replace(">", ""));
+				userToMute = event.getGuild().getMemberById(args[1].replace("<@!", "").replace(">", ""));
 				event.getGuild().addRoleToMember(userToMute, mutedRole).queue();
 				event.getGuild().getTextChannels().forEach((channel) -> channel.putPermissionOverride(userToMute).deny(Permission.MESSAGE_WRITE).queue());
-				break;
-			case 3:
-				userToMute = event.getGuild().getMemberById(args[1].replace("<@", "").replace(">", ""));
-				event.getGuild().addRoleToMember(userToMute, mutedRole).queue();
 				break;
 			default:
 				EmbedBuilder invalidParamNumError = new EmbedBuilder();
 				invalidParamNumError.setColor(Bot.errorColor);
 				invalidParamNumError.setTitle("Invalid number of parameters.");
-				invalidParamNumError.setDescription("Command syntax: " + Bot.prefix + "mute [user tag] {minutes to mute}");
+				invalidParamNumError.setDescription("Command syntax: " + Bot.prefix + "mute [user tag]");
 				event.getChannel().sendMessage(invalidParamNumError.build()).queue((embed) -> invalidParamNumError.clear());
 				break;
 			}
@@ -114,8 +113,9 @@ public class Commands extends ListenerAdapter {
 		else if (args[0].equalsIgnoreCase(Bot.prefix + "unmute")) {
 			Role mutedRole = event.getGuild().getRolesByName("Muted", true).get(0);
 			if (args.length == 2) {
-				Member userToUnmute = event.getGuild().getMemberById(args[1].replace("<@", "").replace(">", ""));
+				Member userToUnmute = event.getGuild().getMemberById(args[1].replace("<@!", "").replace(">", ""));
 				event.getGuild().removeRoleFromMember(userToUnmute, mutedRole).queue();
+				event.getGuild().getTextChannels().forEach((channel) -> channel.getManager().removePermissionOverride(userToUnmute).queue());
 			} else {
 				EmbedBuilder invalidParamNumError = new EmbedBuilder();
 				invalidParamNumError.setColor(Bot.errorColor);
