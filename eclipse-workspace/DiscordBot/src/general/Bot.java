@@ -1,6 +1,9 @@
 package general;
 
 import javax.security.auth.login.LoginException;
+
+import RNG.RNGCommands;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -31,6 +34,7 @@ public class Bot {
 			jda.getPresence().setActivity(Activity.playing("Nothing"));
 			
 			jda.addEventListener(new Commands());
+			jda.addEventListener(new RNGCommands());
 			
 		} catch (FileNotFoundException e) {
 			System.out.println("Token file does not exist.");

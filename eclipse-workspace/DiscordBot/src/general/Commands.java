@@ -16,9 +16,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Commands extends ListenerAdapter {
-	
-	public void onGuildJoin(GuildJoinEvent event) {
-	}
 
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
 		String[] args = event.getMessage().getContentRaw().split("\\s+");
