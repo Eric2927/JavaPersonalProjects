@@ -115,7 +115,8 @@ public class Commands extends ListenerAdapter {
 			if (args.length == 2) {
 				Member userToUnmute = event.getGuild().getMemberById(args[1].replace("<@!", "").replace(">", ""));
 				event.getGuild().removeRoleFromMember(userToUnmute, mutedRole).queue();
-				event.getGuild().getTextChannels().forEach((channel) -> channel.getManager().removePermissionOverride(userToUnmute).queue());
+				//event.getGuild().getTextChannels().forEach((channel) -> channel.getManager().removePermissionOverride(userToUnmute).queue());
+				event.getGuild().getTextChannels().forEach((channel) -> channel.upsertPermissionOverride(userToUnmute).clear(Permission.MESSAGE_WRITE).queue());
 			} else {
 				EmbedBuilder invalidParamNumError = new EmbedBuilder();
 				invalidParamNumError.setColor(Bot.errorColor);
